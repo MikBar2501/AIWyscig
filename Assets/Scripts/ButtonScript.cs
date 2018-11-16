@@ -6,6 +6,7 @@ public class ButtonScript : MonoBehaviour {
 
 	InstancePlayer instancePlayer;
 	TimeScript timeScript;
+	public StartPointScript startPoint;
 
 	public bool playGame;
 
@@ -21,11 +22,13 @@ public class ButtonScript : MonoBehaviour {
 			timeScript.TimeReset();
 			timeScript.StartTime();
 			instancePlayer.StartGame();
+			startPoint.SetStart();
 		} else {
 			timeScript.TimeReset();
 			instancePlayer.StopGame();
 			timeScript.StartTime();
 			instancePlayer.StartGame();
+			startPoint.SetStart();
 		}
 		playGame = true;
 	}

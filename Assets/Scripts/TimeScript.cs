@@ -14,11 +14,12 @@ public class TimeScript : MonoBehaviour {
 	
 
 	void Start() {
-		timeRun = false;	
+		timeRun = false;
+		time = 0f;	
 	}
 
 	void Update() {
-		time = Time.time;
+		time += Time.deltaTime;
 		if(timeRun) {
 			minutes = (int)(time/60f);
 			seconds = (int)(time % 60f);
@@ -35,7 +36,7 @@ public class TimeScript : MonoBehaviour {
 	}
 
 	public void TimeReset() {
-		time = Time.timeSinceLevelLoad;
+		time = 0f;
 		minutes = 0;
 		seconds = 0;
 		counterText.text = "00:00";

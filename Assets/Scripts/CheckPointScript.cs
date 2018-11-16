@@ -6,18 +6,25 @@ public class CheckPointScript : MonoBehaviour {
 
 	public int myNumber;
 	public GameObject gameMaster;
-	CheckRunScript checkRunScript;
 	TimeScript timeScript;
+	bool checkActive;
 
 	// Use this for initialization
 	void Start () {
-		checkRunScript = gameMaster.GetComponent<CheckRunScript>();
+		setActive();
 		timeScript = gameMaster.GetComponent<TimeScript>();
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if(other.tag == "Player") {
-			checkRunScript.newCheckedPoint(timeScript.GetTime(), myNumber);
+			if(checkActive) {
+				other.GetComponent<CheckRunScript>().newCheckedPoint(timeScript.GetTime(), myNumber);
+				checkActive = false;
+			}
 		}	
+	}
+
+	public void setActive() {
+		checkActive = true;
 	}
 }
