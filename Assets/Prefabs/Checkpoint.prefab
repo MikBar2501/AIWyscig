@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114613669534462098}
   m_Layer: 0
   m_Name: Checkpoint
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,7 +79,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myNumber: 0
-  gameMaster: {fileID: 0}
 --- !u!212 &212351512810570948
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -113,7 +112,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -155147167
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2a68461026061464488134d5cd08b60e, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
