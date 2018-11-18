@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class StartPointScript : MonoBehaviour {
 
-	public List<CheckPointScript> checkPointsList;
 
 	public int laps;
 
@@ -13,9 +12,6 @@ public class StartPointScript : MonoBehaviour {
 	}
 
 	private void OnTriggerExit2D(Collider2D other) {
-		foreach(CheckPointScript point in checkPointsList) {
-			point.setActive();
-		}
 		laps++;
 	}
 
