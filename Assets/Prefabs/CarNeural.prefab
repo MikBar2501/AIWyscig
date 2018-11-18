@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c73c499fdb4de54eac9463c4679663b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScript: {fileID: 0}
   checkedPoints:
   - time: 0
     checkNumber: 0

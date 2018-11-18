@@ -9,7 +9,8 @@ public class InstancePlayer : MonoBehaviour {
 	public int carCount;
 	//public List<Transform> carPrefabs;
 	public Vector3 startPos;
-	
+
+    public Transform carsHolder;
 
 	public void StartGame() {
 		//int i = 0;
@@ -19,7 +20,7 @@ public class InstancePlayer : MonoBehaviour {
 		}*/
 		for(int i = 0; i < carCount; i++) {
 			Debug.Log("Wykonaj Autko: " + i);
-			Instantiate(carPrefab,startPos + new Vector3((float)(0.1f * (float)i),0,0),Quaternion.identity);
+			(Instantiate(carPrefab,startPos + new Vector3((float)(0.1f * (float)i),0,0),Quaternion.identity)).transform.parent = carsHolder;
 		}
 		
 	}

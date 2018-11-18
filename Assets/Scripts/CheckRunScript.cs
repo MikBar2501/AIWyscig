@@ -23,13 +23,31 @@ public class CheckRunScript : MonoBehaviour {
 		timeScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<TimeScript>();
 	}
 
-	void Start() {
-		CheckedPoint startPoint = new CheckedPoint();
-		startPoint.SetValue(0f,0);
-		checkedPoints[0] = startPoint;
-	}
+    void Start()
+    {
+        CheckedPoint startPoint = new CheckedPoint();
+        startPoint.SetValue(0f, 0);
+        checkedPoints[0] = startPoint;
+    }
+
+    bool Contains(int index)
+    {
+        foreach(CheckedPoint checkedPoint in checkedPoints)
+        {
+            if (checkedPoint.checkNumber == index)
+                return true;
+        }
+
+        return false;
+    }
 
 	public void newCheckedPoint(float time, int number) {
+        if (Contains(number))
+            return;
+
+        if (number != checkedPoints[checkedPoints.Count - 1].checkNumber + 1)
+            return;
+
 		CheckedPoint checkedPoint = new CheckedPoint();
 		checkedPoint.SetValue(time,number);
 		checkedPoints.Add(checkedPoint);
