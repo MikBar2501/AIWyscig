@@ -11,7 +11,7 @@ public class ButtonScript : MonoBehaviour {
 	public bool playGame;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		instancePlayer = GetComponent<InstancePlayer>();
 		timeScript = GetComponent<TimeScript>();
 		

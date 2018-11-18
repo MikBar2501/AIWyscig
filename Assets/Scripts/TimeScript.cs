@@ -11,12 +11,6 @@ public class TimeScript : MonoBehaviour {
 	public float seconds, minutes;
 	public bool timeRun;
 	float time;
-	
-
-	void Start() {
-		timeRun = false;
-		time = 0f;	
-	}
 
 	void Update() {
 		time += Time.deltaTime;

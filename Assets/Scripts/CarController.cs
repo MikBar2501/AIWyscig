@@ -5,9 +5,9 @@ using UnityEngine;
 public class CarController : MonoBehaviour {
 
 	public float velocity;
-	public float maxVelocity;
+	public float maxVelocity = 0.1f;
 
-	public float acceleration;
+	public float acceleration = 0.1f;
 
 	public float move;
 	public float rotation;
@@ -17,11 +17,16 @@ public class CarController : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision(8,8);
 		
 	}
+
+    public virtual void Control()
+    {
+        move = Input.GetAxis("Vertical");
+        rotation = Input.GetAxis("Horizontal");
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		move = Input.GetAxis("Vertical");
-		rotation = Input.GetAxis("Horizontal");
+        Control();
 
 		/* if(Input.GetKey(KeyCode.I)){
 			move = setVelocity(2);
