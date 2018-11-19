@@ -2366,6 +2366,7 @@ MonoBehaviour:
   generationTime: 10
   keepPerc: 0.186
   genText: {fileID: 306598589}
+  saveFileName: Brain.nc
 --- !u!114 &171898667
 MonoBehaviour:
   m_ObjectHideFlags: 0

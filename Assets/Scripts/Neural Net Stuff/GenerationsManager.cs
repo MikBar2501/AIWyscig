@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.IO;
 
 public class GenerationsManager : MonoBehaviour {
 
@@ -19,6 +21,8 @@ public class GenerationsManager : MonoBehaviour {
 
     public Text genText;
     int genCounter;
+
+    public string saveFileName;
 
     private void Awake()
     {
@@ -54,6 +58,9 @@ public class GenerationsManager : MonoBehaviour {
 
     void CreateNextGeneration(List<NeuralNetwork> oldBrains)
     {
+        gameControl.StopButton();
+        gameControl.StartButton();
+
         ///==Wyrzucenie zbędnych mozgów===///
         int keepCount = (int)(oldBrains.Count * keepPerc);
         if (keepCount == 0)
@@ -72,7 +79,7 @@ public class GenerationsManager : MonoBehaviour {
         {
             car.brain = new NeuralNetwork(oldBrains[netIterator]);
 
-            print("new brain - " + oldBrains[netIterator].GetFitness());
+            //print("new brain - " + oldBrains[netIterator].GetFitness());
 
             if (!bestOne)
                 car.brain.Mutate(true, 0.1f);
@@ -87,6 +94,9 @@ public class GenerationsManager : MonoBehaviour {
             if (netIterator >= oldBrains.Count)
                 netIterator = 0;
         }
+
+        display.UpdateDisplay();
+        IterGenCounter();
     }
 
     List<NeuralNetwork> GetSortedNets()
@@ -123,7 +133,19 @@ public class GenerationsManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(timeControl.GetTime() >= generationTime)
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Save();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            NeuralNetwork net = Load();
+            List<NeuralNetwork> genSample = new List<NeuralNetwork>();
+            genSample.Add(net);
+            CreateNextGeneration(genSample);
+        }
+
+            if (timeControl.GetTime() >= generationTime)
         {
             CalculateFitness();
             List<NeuralNetwork> oldBrains = GetSortedNets();
@@ -131,13 +153,44 @@ public class GenerationsManager : MonoBehaviour {
             foreach (NeuralNetwork net in oldBrains)
                 print("brain - " + net.GetFitness());
 
-            gameControl.StopButton();
-            gameControl.StartButton();
-
             CreateNextGeneration(oldBrains);
-            display.UpdateDisplay();
-
-            IterGenCounter();
         }
 	}
+
+
+
+    public void Save()
+    {
+        if (!display.bestCar)
+            return;
+
+        NeuralNetwork net = display.bestCar.GetComponent<AICarControl>().brain;
+
+        string saveText = "";
+
+        for (int x = 0; x < net.weights.Length; x++)
+            for (int y = 0; y < net.weights[x].Length; y++)
+                for (int z = 0; z < net.weights[x][y].Length; z++)
+                    saveText += net.weights[x][y][z] + Environment.NewLine;
+
+        File.WriteAllText(saveFileName, saveText);
+    }
+
+    public NeuralNetwork Load()
+    {
+        NeuralNetwork net = new NeuralNetwork(layers);
+
+        if (!File.Exists(saveFileName))
+            return net;
+
+        string[] lines = File.ReadAllLines(saveFileName);
+        int iterator = 0;
+
+        for (int x = 0; x < net.weights.Length; x++)
+            for (int y = 0; y < net.weights[x].Length; y++)
+                for (int z = 0; z < net.weights[x][y].Length; z++)
+                    net.weights[x][y][z] = float.Parse(lines[iterator++]);
+
+        return net;
+    }
 }

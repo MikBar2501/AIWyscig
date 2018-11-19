@@ -23,30 +23,6 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
     /// <param name="layers">layers to the neural network</param>
     /// 
 
-    public void Save()
-    {
-        for (int x = 0; x < weights.Length; x++)
-            for (int y = 0; y < weights[x].Length; y++)
-                for (int z = 0; z < weights[x][y].Length; z++)
-                    PlayerPrefs.SetFloat(ID + "x" + x + "y" + y + "z" + z, weights[x][y][z]);
-    }
-
-    public void Load()
-    {
-        Load(ID);
-    }
-
-    public void Load(string ID)
-    {
-        InitWeights();
-        for (int x = 0; x < weights.Length; x++)
-            for (int y = 0; y < weights[x].Length; y++)
-                for (int z = 0; z < weights[x][y].Length; z++)
-                {
-                    weights[x][y][z] = PlayerPrefs.GetFloat(ID + "x" + x + "y" + y + "z" + z);
-                }
-    }
-
     public NeuralNetwork(int[] layers)
     {
         //deep copy of layers of this network 
@@ -79,7 +55,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
         CopyWeights(copyNetwork.weights);
     }
 
-    private void CopyWeights(float[][][] copyWeights)
+    void CopyWeights(float[][][] copyWeights)
     {
         for (int i = 0; i < weights.Length; i++)
         {
