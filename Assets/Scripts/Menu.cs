@@ -25,6 +25,7 @@ public class Menu : MonoBehaviour {
             GameObject imgObj = Instantiate(imageFilePref, imagesHolder);
             imgObj.GetComponent<RawImage>().texture = file.image;
             imgObj.transform.GetChild(0).GetComponent<Text>().text = file.name;
+            imgObj.GetComponent<SaveImagePath>().imgPath = file.fullPath;
         }
     }
 	

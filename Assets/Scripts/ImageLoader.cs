@@ -8,6 +8,7 @@ public struct ImageFile
 {
     public string name;
     public Texture2D image;
+    public string fullPath;
 }
 
 public class ImageLoader : MonoBehaviour {
@@ -41,7 +42,8 @@ public class ImageLoader : MonoBehaviour {
             //testText.text = folderPath + "/" + name;
             //Texture2D image = LoadImage(new Vector2(512,512), folderPath + "/" + name); //FOR BUILD
             Texture2D image = LoadImage(new Vector2(512, 512), name); //FOR EDITOR
-            imageFiles.Add(new ImageFile { name = name, image = image });
+            imageFiles.Add(new ImageFile { name = name, image = image, fullPath = name });
+            //imageFiles.Add(new ImageFile { name = name, image = image, fullPath = folderPath + "/" + name });
         }
 
         return imageFiles;
