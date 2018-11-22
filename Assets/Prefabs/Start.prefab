@@ -21,9 +21,11 @@ GameObject:
   - component: {fileID: 4429789608782422}
   - component: {fileID: 212810847105466780}
   - component: {fileID: 61602391699279724}
+  - component: {fileID: 114777449238247554}
+  - component: {fileID: 114793750631527464}
   m_Layer: 2
   m_Name: Start
-  m_TagString: Start
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1107196549312406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 5, z: 0}
+  m_LocalPosition: {x: -6.5, y: 4.23, z: 0}
   m_LocalScale: {x: 3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 4355561746529878}
@@ -96,6 +98,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114777449238247554
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107196549312406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b878abb85bb129428f2c400bae8c4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laps: 0
+--- !u!114 &114793750631527464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107196549312406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a7d9c8fdb81684693ae0b0ee63c7fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myNumber: 0
 --- !u!212 &212783224281230522
 SpriteRenderer:
   m_ObjectHideFlags: 1
