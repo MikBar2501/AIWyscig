@@ -9,11 +9,14 @@ public class LevelGenerator : MonoBehaviour {
 	public ColorToPrefab[] colorMappings;
 	string imgPath;
 
+    public Vector2 mapScale = new Vector2(100,50);
+
 	void Awake() {
 		imgPath = PlayerPrefs.GetString("img_path");
-		map = LoadImage(imgPath);
 
-	}
+        map = ImageLoader.LoadImage(new Vector2(50, 50), imgPath);
+        TextureScale.Point(map, (int)mapScale.x, (int)mapScale.y);
+    }
 
 	void Start() {
 		GenerateLevel();
@@ -41,17 +44,4 @@ public class LevelGenerator : MonoBehaviour {
 		}
 
 	}
-
-	private static Texture2D LoadImage(string filePath)
-    {
-
-        byte[] bytes = File.ReadAllBytes(filePath);
-        Texture2D texture = new Texture2D(50, 50, TextureFormat.RGB24, false);
-        texture.filterMode = FilterMode.Point;
-        texture.LoadImage(bytes);
-        texture.Apply();
-
-        return texture;
-    }
-
 }

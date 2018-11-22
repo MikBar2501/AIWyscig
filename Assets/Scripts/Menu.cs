@@ -11,8 +11,7 @@ public class Menu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        File.WriteAllText("tescik.test", "ojejejje");
-
+        //File.WriteAllText("tescik.test", "ojejejje");
         LoadImages();
 	}
 
@@ -27,6 +26,11 @@ public class Menu : MonoBehaviour {
             imgObj.transform.GetChild(0).GetComponent<Text>().text = file.name;
             imgObj.GetComponent<SaveImagePath>().imgPath = file.fullPath;
         }
+    }
+
+    public void SetTraining(bool training)
+    {
+        PlayerPrefs.SetInt("training", training ? 1 : 0);
     }
 	
 }

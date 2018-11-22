@@ -71,7 +71,7 @@ public class ImageLoader : MonoBehaviour {
         return newPath;
     }
 
-    private static Texture2D LoadImage(Vector2 size, string filePath)
+    public static Texture2D LoadImage(Vector2 size, string filePath)
     {
 
         byte[] bytes = File.ReadAllBytes(filePath);
