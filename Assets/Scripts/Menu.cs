@@ -9,11 +9,17 @@ public class Menu : MonoBehaviour {
     public Transform imagesHolder;
     public GameObject imageFilePref;
 
+    public Button reset;
+    public Button versus;
+
 	// Use this for initialization
 	void Start () {
         //File.WriteAllText("tescik.test", "ojejejje");
         LoadImages();
-	}
+        bool save = GenerationsManager.IsThereBrainSaved();
+        reset.interactable = save;
+        versus.interactable = save;
+    }
 
     public void LoadImages()
     {

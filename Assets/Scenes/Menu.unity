@@ -1943,3 +1943,5 @@ MonoBehaviour:
   imagesHolder: {fileID: 773475033}
   imageFilePref: {fileID: 1608120102365688, guid: 083bd9348e78ec445818cd8e1e14271d,
     type: 2}
+  reset: {fileID: 1261306564}
+  versus: {fileID: 1585273148}

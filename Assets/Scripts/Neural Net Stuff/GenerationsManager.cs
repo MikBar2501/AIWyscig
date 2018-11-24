@@ -22,7 +22,12 @@ public class GenerationsManager : MonoBehaviour {
     public Text genText;
     int genCounter;
 
-    public string saveFileName;
+    public static string saveFileName = "brain.nc";
+
+    public static bool IsThereBrainSaved()
+    {
+        return File.Exists(saveFileName);
+    }
 
     private void Awake()
     {
