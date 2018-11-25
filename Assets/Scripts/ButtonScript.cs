@@ -6,7 +6,8 @@ public class ButtonScript : MonoBehaviour {
 
 	InstancePlayer instancePlayer;
 	TimeScript timeScript;
-	public StartPointScript startPoint;
+	[HideInInspector]
+	public GameObject[] startPoints;
 
 	public bool playGame;
 
@@ -15,6 +16,12 @@ public class ButtonScript : MonoBehaviour {
 		instancePlayer = GetComponent<InstancePlayer>();
 		timeScript = GetComponent<TimeScript>();
 		
+		
+	}
+
+	void Start() {
+		startPoints = GameObject.FindGameObjectsWithTag("Start");
+		InstancePlayer.instancePlayer.StartsLength();
 	}
 	
 	public void StartButton() {
@@ -22,13 +29,18 @@ public class ButtonScript : MonoBehaviour {
 			timeScript.TimeReset();
 			timeScript.StartTime();
 			instancePlayer.StartGame();
-			startPoint.SetStart();
+			foreach(GameObject start in startPoints) {
+				start.GetComponent<StartPointScript>().SetStart();
+			}
+			
 		} else {
 			timeScript.TimeReset();
 			instancePlayer.StopGame();
 			timeScript.StartTime();
 			instancePlayer.StartGame();
-			startPoint.SetStart();
+			foreach(GameObject start in startPoints) {
+				start.GetComponent<StartPointScript>().SetStart();
+			}
 		}
 		playGame = true;
 	}

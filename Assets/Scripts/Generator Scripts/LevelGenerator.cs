@@ -12,11 +12,8 @@ public class LevelGenerator : MonoBehaviour {
 	void Awake() {
 		imgPath = PlayerPrefs.GetString("img_path");
 		map = LoadImage(imgPath);
-
-	}
-
-	void Start() {
 		GenerateLevel();
+
 	}
 
 	void GenerateLevel() {

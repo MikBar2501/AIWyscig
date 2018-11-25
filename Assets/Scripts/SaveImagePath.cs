@@ -11,7 +11,12 @@ public class SaveImagePath : MonoBehaviour {
 	public void Save()
     {
         PlayerPrefs.SetString("img_path", imgPath);
-        SceneManager.LoadScene("generator");
+        if(Menu.instanceMenu.learn == true) {
+            SceneManager.LoadScene("Training");
+        } else {
+            SceneManager.LoadScene("Versus");
+        }
+        
     }
 
 

@@ -1422,20 +1422,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45104434}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 932252947}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2120996759}
+        m_MethodName: LearnMode
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1650,20 +1639,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 45104434}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 932252947}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2120996759}
+        m_MethodName: VersusMode
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1921,3 +1899,6 @@ MonoBehaviour:
   imagesHolder: {fileID: 773475033}
   imageFilePref: {fileID: 1608120102365688, guid: 083bd9348e78ec445818cd8e1e14271d,
     type: 2}
+  learn: 0
+  m1: {fileID: 45104434}
+  m2: {fileID: 932252947}
