@@ -22,7 +22,7 @@ public class GenerationsManager : MonoBehaviour {
     public Text genText;
     int genCounter;
 
-    public string saveFileName;
+    public static string saveFileName = "brain.nc";
 
     private void Awake()
     {

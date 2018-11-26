@@ -15,12 +15,22 @@ public class Menu : MonoBehaviour {
 
     public static Menu instanceMenu;
 
+    public Button versus;
+    public Button reset;
+
 	// Use this for initialization
 	void Start () {
         instanceMenu = this;
         File.WriteAllText("tescik.test", "ojejejje");
         LoadImages();
-	}
+
+        if (!File.Exists(GenerationsManager.saveFileName))
+        {
+            reset.interactable = false;
+            versus.interactable = false;
+        }
+
+    }
 
     public void LoadImages()
     {
@@ -43,6 +53,7 @@ public class Menu : MonoBehaviour {
 
     public void ResetPrefs()
     {
+        reset.interactable = false;
         PlayerPrefs.DeleteAll();
     }
 

@@ -1924,3 +1924,5 @@ MonoBehaviour:
   learn: 0
   m1: {fileID: 45104434}
   m2: {fileID: 932252947}
+  versus: {fileID: 1585273148}
+  reset: {fileID: 1261306564}
