@@ -6,13 +6,19 @@ using System.IO;
 public class LevelGenerator : MonoBehaviour {
 
 	public Texture2D map;
-	public ColorToPrefab[] colorMappings;
+    [Range(0.0f, 1.0f)]
+    public float mapScale;
+    public ColorToPrefab[] colorMappings;
 	string imgPath;
+
+    float scaleOffset;
 
 	void Awake() {
 		imgPath = PlayerPrefs.GetString("img_path");
 		map = LoadImage(imgPath);
-		GenerateLevel();
+        scaleOffset = (1 - mapScale);
+
+        GenerateLevel();
 
 	}
 
@@ -32,8 +38,9 @@ public class LevelGenerator : MonoBehaviour {
 
 		foreach(ColorToPrefab colorMapping in colorMappings) {
 			if(colorMapping.color.Equals(pixelColor)) {
-				Vector2 position = new Vector2(x-(int)(map.width/2), y-(int)(map.height/2));
-				Instantiate(colorMapping.prefab, position, Quaternion.identity, transform);
+				Vector2 position = new Vector2(x-(int)(map.width/2), y-(int)(map.height/2)) * mapScale + (Vector2)transform.position;
+				Transform tile = Instantiate(colorMapping.prefab, position, Quaternion.identity, transform).transform;
+                tile.localScale = new Vector3(mapScale, mapScale, mapScale);
 			}
 		}
 

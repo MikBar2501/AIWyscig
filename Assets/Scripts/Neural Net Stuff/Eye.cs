@@ -12,6 +12,12 @@ public class Eye : MonoBehaviour {
     float currentDistance = 0;
 
     Color color;
+    bool hideRays = false;
+
+    public void HideRays()
+    {
+        hideRays = true;
+    }
 
     // Use this for initialization
     void Start () {
@@ -53,7 +59,14 @@ public class Eye : MonoBehaviour {
 
         float normDist = GetDistanceNormalized();
 
-        line.startColor = normDist * color + (1 - normDist) * Color.red;
+        if (!hideRays)
+        {
+            line.startColor = normDist * color + (1 - normDist) * Color.red;
+        }
+        else
+        {
+            line.startColor = new Color(0, 0, 0, 0);
+        }
         line.endColor = line.startColor;
 
         line.SetPositions(posintions);

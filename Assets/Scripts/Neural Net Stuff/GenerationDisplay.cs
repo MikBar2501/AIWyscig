@@ -10,7 +10,31 @@ public class GenerationDisplay : MonoBehaviour {
     [HideInInspector]
     public GameObject bestCar;
 
-	public void Toggle()
+    public GameObject saveButton;
+    public GameObject leaveButton;
+
+    private void Awake()
+    {
+        if (!GenerationsManager.Training())
+        {
+            saveButton.SetActive(false);
+        }
+        else
+        {
+            leaveButton.SetActive(false);
+            enabled = false;
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Application.LoadLevel(1);
+        }
+    }
+
+    public void Toggle()
     {
         bestOne = !bestOne;
         UpdateDisplay();
@@ -33,5 +57,10 @@ public class GenerationDisplay : MonoBehaviour {
             bestCar.transform.parent = null;
             //bestCar.transform.SetAsFirstSibling();
         }
+    }
+
+    public void Leave()
+    {
+        Application.LoadLevel(0);
     }
 }

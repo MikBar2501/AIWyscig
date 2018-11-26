@@ -19,7 +19,6 @@ public class Menu : MonoBehaviour {
 	void Start () {
         instanceMenu = this;
         File.WriteAllText("tescik.test", "ojejejje");
-
         LoadImages();
 	}
 
@@ -36,16 +35,19 @@ public class Menu : MonoBehaviour {
         }
     }
 
-    public void VersusMode() {
+    public void Mode(bool learn) {
         m1.SetActive(false);
         m2.SetActive(true);
-        learn = false;
+        PlayerPrefs.SetInt("training", learn ? 1 : 0);
+    }	
+
+    public void ResetPrefs()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
-    public void LearnMode() {
-        m1.SetActive(false);
-        m2.SetActive(true);
-        learn = true;
+    public void Exit()
+    {
+        Application.Quit();
     }
-	
 }

@@ -32,6 +32,15 @@ public class GenerationsManager : MonoBehaviour {
         display = GetComponent<GenerationDisplay>();
     }
 
+    public static bool Training()
+    {
+        if (!PlayerPrefs.HasKey("training") || PlayerPrefs.GetInt("training") == 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
     void IterGenCounter()
     {
         genCounter++;
@@ -41,11 +50,39 @@ public class GenerationsManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gameControl.StartButton();
-        IterGenCounter();
-        CreateFirstGeneration();
-        display.UpdateDisplay();
+
+        if (Training())
+        {
+            IterGenCounter();
+            CreateFirstGeneration();
+            display.UpdateDisplay();
+            return;
+        }
+
+        NeuralNetwork brain = Load();
+        AICarControl car = FindObjectOfType<AICarControl>();
+        car.brain = brain;
+        foreach (Eye eye in car.GetComponentsInChildren<Eye>())
+            eye.HideRays();
+        
+        enabled = false;
+
+        foreach(CarController carCon in FindObjectsOfType<CarController>())
+        {
+            carCon.enabled = false;
+        }
+
+        StartCountDown.main.StartCount();
     }
 	
+    public void ActivateCars()
+    {
+        foreach (CarController carCon in FindObjectsOfType<CarController>())
+        {
+            carCon.enabled = true;
+        }
+    }
+
     void CreateFirstGeneration()
     {
         NeuralNetwork startNet = new NeuralNetwork(layers);

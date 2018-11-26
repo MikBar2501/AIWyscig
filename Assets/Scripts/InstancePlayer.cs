@@ -15,26 +15,21 @@ public class InstancePlayer : MonoBehaviour {
 	public static InstancePlayer instancePlayer;
 	public bool learnMode;
 
-	void Start() {
+	void Awake() {
 		instancePlayer = this;
-		
+
+        learnMode = GenerationsManager.Training();
 	}
 
 	public void StartGame() {
-		//int i = 0;
-		/*foreach(Transform car in carPrefabs) {
-			Instantiate(car,startPos + new Vector3((float) i,0,0),Quaternion.identity);
-			i++;
-		}*/
-
 		if(learnMode) {
 			for(int i = 0; i < carCount; i++) {
-				Debug.Log("Wykonaj Autko: " + i);
-				(Instantiate(carPrefab,startPos + new Vector3((float)(0.1f * (float)i),0,0),Quaternion.identity)).transform.parent = carsHolder;
+				//Debug.Log("Wykonaj Autko: " + i);
+				(Instantiate(carPrefab,startPos,Quaternion.identity)).transform.parent = carsHolder;
 			}
 		} else {
-			(Instantiate(carPrefab,startPos + new Vector3(0f,0,0),Quaternion.identity)).transform.parent = carsHolder;
-			(Instantiate(playerPrefab,startPos + new Vector3(1f,0,0),Quaternion.identity)).transform.parent = carsHolder;
+			(Instantiate(carPrefab,startPos,Quaternion.identity)).transform.parent = carsHolder;
+			(Instantiate(playerPrefab,startPos,Quaternion.identity)).transform.parent = carsHolder;
 
 		}
 		
