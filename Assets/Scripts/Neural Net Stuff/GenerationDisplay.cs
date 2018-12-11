@@ -11,6 +11,7 @@ public class GenerationDisplay : MonoBehaviour {
     public GameObject bestCar;
 
     public GameObject saveButton;
+    public GameObject toggle;
     public GameObject leaveButton;
 
     private void Awake()
@@ -18,6 +19,7 @@ public class GenerationDisplay : MonoBehaviour {
         if (!GenerationsManager.Training())
         {
             saveButton.SetActive(false);
+            toggle.SetActive(false);
         }
         else
         {

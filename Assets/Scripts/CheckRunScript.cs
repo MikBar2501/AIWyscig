@@ -19,6 +19,8 @@ public class CheckRunScript : MonoBehaviour {
 
 	public List<CheckedPoint> checkedPoints;// = new List<CheckedPoint>();
 
+    int checkPointsCount;
+
 	void Awake() {
 		timeScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<TimeScript>();
 	}
@@ -28,6 +30,7 @@ public class CheckRunScript : MonoBehaviour {
         CheckedPoint startPoint = new CheckedPoint();
         startPoint.SetValue(0f, 0);
         checkedPoints[0] = startPoint;
+        checkPointsCount = FindObjectsOfType<CheckPointScript>().Length;
     }
 
     bool Contains(int index)
@@ -45,8 +48,13 @@ public class CheckRunScript : MonoBehaviour {
         if (Contains(number))
             return;
 
-        if (number != checkedPoints[checkedPoints.Count - 1].checkNumber + 1)
+        int lastCheckPoint = checkedPoints[checkedPoints.Count - 1].checkNumber;
+
+        if (number != lastCheckPoint + 1)
+        {
+            if(lastCheckPoint != checkPointsCount || number != 0)
             return;
+        }
 
 		CheckedPoint checkedPoint = new CheckedPoint();
 		checkedPoint.SetValue(time,number);

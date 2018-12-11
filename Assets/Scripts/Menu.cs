@@ -54,7 +54,13 @@ public class Menu : MonoBehaviour {
     public void ResetPrefs()
     {
         reset.interactable = false;
+        versus.interactable = false;
         PlayerPrefs.DeleteAll();
+
+        if (File.Exists(GenerationsManager.saveFileName))
+        {
+            File.Delete(GenerationsManager.saveFileName);
+        }
     }
 
     public void Exit()

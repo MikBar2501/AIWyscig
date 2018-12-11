@@ -9,6 +9,8 @@ public class GenerationsManager : MonoBehaviour {
 
     public static GenerationsManager main;
 
+    public bool menuMode;
+
     public int[] layers;
 
     ButtonScript gameControl;
@@ -32,6 +34,13 @@ public class GenerationsManager : MonoBehaviour {
         display = GetComponent<GenerationDisplay>();
     }
 
+    public void SetGenTime(Slider slider)
+    {
+        generationTime = slider.value;
+
+        slider.GetComponentInChildren<Text>().text = "generation time: " + ((float)((int)(generationTime * 100)) / 100) + "s";
+    }
+
     public static bool Training()
     {
         if (!PlayerPrefs.HasKey("training") || PlayerPrefs.GetInt("training") == 1)
@@ -49,9 +58,10 @@ public class GenerationsManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        gameControl.StartButton();
+        if(!menuMode)
+            gameControl.StartButton();
 
-        if (Training())
+        if (Training() && !menuMode)
         {
             IterGenCounter();
             CreateFirstGeneration();
@@ -67,12 +77,15 @@ public class GenerationsManager : MonoBehaviour {
         
         enabled = false;
 
-        foreach(CarController carCon in FindObjectsOfType<CarController>())
+        if (!menuMode)
         {
-            carCon.enabled = false;
-        }
+            foreach (CarController carCon in FindObjectsOfType<CarController>())
+            {
+                carCon.enabled = false;
+            }
 
-        StartCountDown.main.StartCount();
+            StartCountDown.main.StartCount();
+        }
     }
 	
     public void ActivateCars()
@@ -85,12 +98,32 @@ public class GenerationsManager : MonoBehaviour {
 
     void CreateFirstGeneration()
     {
-        NeuralNetwork startNet = new NeuralNetwork(layers);
-        foreach(AICarControl car in GameObject.FindObjectsOfType<AICarControl>())
+        NeuralNetwork startNet;
+        if (!File.Exists(saveFileName))
+        {
+            startNet = new NeuralNetwork(layers);
+        }
+        else
+        {
+            startNet = Load();
+        }
+
+        bool first = true;
+
+        foreach (AICarControl car in GameObject.FindObjectsOfType<AICarControl>())
         {
             car.brain = new NeuralNetwork(startNet);
-            car.brain.Mutate(true, 1);
+
+            if (!first)
+            {
+                car.brain.Mutate(true, 1);
+            }
+            else
+                display.bestCar = car.gameObject;
+            first = false;
         }
+        
+
     }
 
     void CreateNextGeneration(List<NeuralNetwork> oldBrains)
@@ -100,6 +133,12 @@ public class GenerationsManager : MonoBehaviour {
 
         ///==Wyrzucenie zbędnych mozgów===///
         int keepCount = (int)(oldBrains.Count * keepPerc);
+        if (keepCount == 0)
+            keepCount = 1;
+
+        if (oldBrains[0].GetFitness() == 0)
+            keepCount = (int)((float)oldBrains.Count / 2);
+
         if (keepCount == 0)
             keepCount = 1;
 
@@ -122,7 +161,7 @@ public class GenerationsManager : MonoBehaviour {
                 car.brain.Mutate(true, 0.1f);
             else
             {
-                car.GetComponent<ColorChangerSR>().ChangeColor(Color.yellow);
+                //car.GetComponent<ColorChangerSR>().ChangeColor(Color.yellow);
                 display.bestCar = car.gameObject;
                 bestOne = false;
             }
@@ -215,12 +254,17 @@ public class GenerationsManager : MonoBehaviour {
 
     public NeuralNetwork Load()
     {
+        return Load(saveFileName);
+    }
+
+    public NeuralNetwork Load(string fileName)
+    {
         NeuralNetwork net = new NeuralNetwork(layers);
 
-        if (!File.Exists(saveFileName))
+        if (!File.Exists(fileName))
             return net;
 
-        string[] lines = File.ReadAllLines(saveFileName);
+        string[] lines = File.ReadAllLines(fileName);
         int iterator = 0;
 
         for (int x = 0; x < net.weights.Length; x++)
