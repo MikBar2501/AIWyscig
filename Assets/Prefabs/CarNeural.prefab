@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 50362611259626498}
   - component: {fileID: 114202167861519116}
   - component: {fileID: 70462733832509014}
-  - component: {fileID: 114295645490592530}
   - component: {fileID: 114020608373965070}
   m_Layer: 8
   m_Name: CarNeural
@@ -71,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113031201814972}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalPosition: {x: 0, y: 0.314, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4899431568606222}
@@ -85,8 +84,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1503014026732038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.103, y: -3.07, z: 0}
-  m_LocalScale: {x: 0.05829522, y: 0.04755797, z: 1}
+  m_LocalPosition: {x: -7.19, y: 1.15, z: 0}
+  m_LocalScale: {x: 0.73242295, y: 0.8141795, z: 1}
   m_Children:
   - {fileID: 4662588492480368}
   m_Father: {fileID: 0}
@@ -137,8 +136,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.21080506, y: 0.45781228}
-  m_Size: {x: 10.022347, y: 19.899979}
+  m_Offset: {x: 0.004989576, y: -0.020062717}
+  m_Size: {x: 0.59618664, y: 1.2383317}
   m_Direction: 0
 --- !u!114 &114020608373965070
 MonoBehaviour:
@@ -167,21 +166,6 @@ MonoBehaviour:
   acceleration: 0.1
   move: 0
   rotation: 0
---- !u!114 &114295645490592530
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1503014026732038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c73c499fdb4de54eac9463c4679663b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeScript: {fileID: 0}
-  checkedPoints:
-  - time: 0
-    checkNumber: 0
 --- !u!114 &114457667071618796
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -230,8 +214,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -696915787
   m_SortingLayer: 5
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7f9c5933ab13ac5429e4aa45d08e9850, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 1e65dd515ba51c34182c3099a0c997ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
