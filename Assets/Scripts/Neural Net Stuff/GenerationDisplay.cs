@@ -12,6 +12,7 @@ public class GenerationDisplay : MonoBehaviour {
 
     public GameObject saveButton;
     public GameObject toggle;
+    public GameObject slider;
     public GameObject leaveButton;
 
     private void Awake()
@@ -20,6 +21,7 @@ public class GenerationDisplay : MonoBehaviour {
         {
             saveButton.SetActive(false);
             toggle.SetActive(false);
+            slider.SetActive(false);
         }
         else
         {

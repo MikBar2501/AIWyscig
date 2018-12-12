@@ -356,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aaa267ecb88db4eb59cff9987c62e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuMode: 0
   layers: 030000000500000002000000
   generationTime: 10
   keepPerc: 0.186
@@ -375,6 +376,7 @@ MonoBehaviour:
   bestCar: {fileID: 0}
   saveButton: {fileID: 618711709}
   toggle: {fileID: 1588280807}
+  slider: {fileID: 847741969}
   leaveButton: {fileID: 1813698180}
 --- !u!114 &171898668
 MonoBehaviour:
