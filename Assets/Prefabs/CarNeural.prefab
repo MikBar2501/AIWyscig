@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114202167861519116}
   - component: {fileID: 70462733832509014}
   - component: {fileID: 114020608373965070}
+  - component: {fileID: 114894342770252688}
   m_Layer: 8
   m_Name: CarNeural
   m_TagString: Player
@@ -180,6 +181,21 @@ MonoBehaviour:
   maxAngle: 45.3
   eyesCount: 3
   eyePref: {fileID: 1262039292315584, guid: 3742e8c400d476b448df762bd5d07cb3, type: 2}
+--- !u!114 &114894342770252688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503014026732038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c73c499fdb4de54eac9463c4679663b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeScript: {fileID: 0}
+  checkedPoints:
+  - time: 0
+    checkNumber: 0
 --- !u!212 &212128721772672152
 SpriteRenderer:
   m_ObjectHideFlags: 1

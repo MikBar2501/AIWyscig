@@ -17,7 +17,7 @@ public class TimeScript : MonoBehaviour {
 		if(timeRun) {
 			minutes = (int)(time/60f);
 			seconds = (int)(time % 60f);
-			counterText.text = minutes.ToString("00") + ":" + seconds.ToString("00");	
+			counterText.text = "Time: " + minutes.ToString("00") + ":" + seconds.ToString("00");	
 		}
 	}
 
@@ -33,7 +33,7 @@ public class TimeScript : MonoBehaviour {
 		time = 0f;
 		minutes = 0;
 		seconds = 0;
-		counterText.text = "00:00";
+		counterText.text = "Time: 00:00";
 	}
 
 	public float GetTime() {

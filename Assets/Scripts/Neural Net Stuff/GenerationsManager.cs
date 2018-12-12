@@ -26,6 +26,8 @@ public class GenerationsManager : MonoBehaviour {
 
     public static string saveFileName = "brain.nc";
 
+    public Text genTimeText;
+
     private void Awake()
     {
         main = this;
@@ -38,7 +40,11 @@ public class GenerationsManager : MonoBehaviour {
     {
         generationTime = slider.value;
 
-        slider.GetComponentInChildren<Text>().text = "generation time: " + ((float)((int)(generationTime * 100)) / 100) + "s";
+        genTimeText.text = "generation time: " + ("00:") + (generationTime<10? "0": "") + (int)generationTime;
+        if((int)generationTime >= 60)
+        {
+            genTimeText.text = "generation time: 01:00";
+        }
     }
 
     public static bool Training()
