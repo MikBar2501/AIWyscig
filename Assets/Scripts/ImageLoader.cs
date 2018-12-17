@@ -15,6 +15,7 @@ public class ImageLoader : MonoBehaviour {
 
     public string folderName;
     public Text testText;
+    public static string folderPath;
 
     // Use this for initialization
     void Start () {
@@ -29,8 +30,8 @@ public class ImageLoader : MonoBehaviour {
         List<ImageFile> imageFiles = new List<ImageFile>();
 
         string dataPath = Application.dataPath;
-        string folderPath = JumpBackOneFolder(dataPath) + "/" + folderName;
-
+        folderPath = JumpBackOneFolder(dataPath) + "/" + folderName;
+        //folderPath
         testText.text = "";
 
         DirectoryInfo dir = new DirectoryInfo(folderPath);
@@ -40,8 +41,8 @@ public class ImageLoader : MonoBehaviour {
         {
             string name = f.ToString();
             //testText.text = folderPath + "/" + name;
-            //Texture2D image = LoadImage(new Vector2(512,512), folderPath + "/" + name); //FOR BUILD
-            Texture2D image = LoadImage(new Vector2(512, 512), name); //FOR EDITOR
+            Texture2D image = LoadImage(new Vector2(512,512), folderPath + "/" + name); //FOR BUILD
+            //Texture2D image = LoadImage(new Vector2(512, 512), name); //FOR EDITOR
             imageFiles.Add(new ImageFile { name = name, image = image, fullPath = name });
             //imageFiles.Add(new ImageFile { name = name, image = image, fullPath = folderPath + "/" + name });
         }

@@ -10,7 +10,7 @@ public class SaveImagePath : MonoBehaviour {
 
 	public void Save()
     {
-        PlayerPrefs.SetString("img_path", imgPath);
+        PlayerPrefs.SetString("img_path", ImageLoader.folderPath + "/" + imgPath);
         SceneManager.LoadScene(1);
     }
       

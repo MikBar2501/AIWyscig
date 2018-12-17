@@ -16,6 +16,7 @@ public class LevelGenerator : MonoBehaviour {
 	void Awake() {
 		imgPath = PlayerPrefs.GetString("img_path");
 		map = LoadImage(imgPath);
+        TextureScale.Point(map, 50, 50);
         scaleOffset = (1 - mapScale);
 
         GenerateLevel();
