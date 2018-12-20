@@ -78,6 +78,7 @@ public class GenerationsManager : MonoBehaviour {
         NeuralNetwork brain = Load();
         AICarControl car = FindObjectOfType<AICarControl>();
         car.brain = brain;
+        NeuralNetwork.best = car.brain;
         foreach (Eye eye in car.GetComponentsInChildren<Eye>())
             eye.HideRays();
         
@@ -125,7 +126,10 @@ public class GenerationsManager : MonoBehaviour {
                 car.brain.Mutate(true, 1);
             }
             else
+            {
                 display.bestCar = car.gameObject;
+                NeuralNetwork.best = car.brain;
+            }
             first = false;
         }
         
@@ -169,6 +173,7 @@ public class GenerationsManager : MonoBehaviour {
             {
                 //car.GetComponent<ColorChangerSR>().ChangeColor(Color.yellow);
                 display.bestCar = car.gameObject;
+                NeuralNetwork.best = car.brain;
                 bestOne = false;
             }
 
@@ -215,6 +220,16 @@ public class GenerationsManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+        if(Input.GetKey(KeyCode.P))
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             Save();

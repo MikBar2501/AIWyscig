@@ -28,7 +28,7 @@ public class CarController : MonoBehaviour {
 	void Update () {
         Control();
 
-		/* if(Input.GetKey(KeyCode.I)){
+        /* if(Input.GetKey(KeyCode.I)){
 			move = setVelocity(2);
 		} else if(Input.GetKey(KeyCode.K)){
 			move = setVelocity(-1);
@@ -44,11 +44,11 @@ public class CarController : MonoBehaviour {
 			rotation = setDirection(0);
 		}*/
 
-		
-		
-		movRotMethod(rotation, move);
-		transform.Translate(Vector3.up * velocity);
-		
+        if (Time.timeScale > 0)
+        {
+            movRotMethod(rotation, move);
+            transform.Translate(Vector3.up * velocity);
+        }
 	}
 
 	public void movRotMethod(float dir, float vel) {

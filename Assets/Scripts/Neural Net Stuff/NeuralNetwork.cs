@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class NeuralNetwork : IComparable<NeuralNetwork>
 {
+    public static NeuralNetwork best;
+
     private int[] layers; //layers
     public float[][] neurons; //neuron matix
     public float[][][] weights; //weight matrix
@@ -132,6 +134,10 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
         for (int i = 0; i < inputs.Length; i++)
         {
             neurons[0][i] = inputs[i];
+            if (this == best)
+            {
+                NNGraphControl.main.SetNodeValue(0, i, neurons[0][i] * 2 - 1);
+            }
         }
 
         //itterate over all neurons and compute feedforward values 
@@ -147,6 +153,10 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
                 }
 
                 neurons[i][j] = (float)Math.Tanh(value); //Hyperbolic tangent activation
+                if(this == best)
+                {
+                    NNGraphControl.main.SetNodeValue(i, j, neurons[i][j]);
+                }
             }
         }
 
