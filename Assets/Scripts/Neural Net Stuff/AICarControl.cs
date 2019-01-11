@@ -8,6 +8,7 @@ public class AICarControl : CarController {
     Sight sight;
 
     CheckRunScript checkRun;
+    public Color myColor;
 
     private void Awake()
     {

@@ -59,3 +59,6 @@ TagManager:
   - name: Car
     uniqueID: 3598051509
     locked: 0
+  - name: Glass
+    uniqueID: 3208033901
+    locked: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random=UnityEngine.Random;
 using System;
 using System.IO;
 
@@ -119,6 +120,11 @@ public class GenerationsManager : MonoBehaviour {
 
         foreach (AICarControl car in GameObject.FindObjectsOfType<AICarControl>())
         {
+            Color m_NewColor = SwitchColor(Random.Range(0,5));
+            car.myColor = m_NewColor;
+            car.GetComponent<SpriteRenderer>().color = car.myColor;
+            
+
             car.brain = new NeuralNetwork(startNet);
 
             if (!first)
@@ -132,6 +138,7 @@ public class GenerationsManager : MonoBehaviour {
             }
             first = false;
         }
+        NeuralList.list.CarList();
         
 
     }
@@ -163,8 +170,11 @@ public class GenerationsManager : MonoBehaviour {
         bool bestOne = true;
         foreach (AICarControl car in GameObject.FindObjectsOfType<AICarControl>())
         {
-            car.brain = new NeuralNetwork(oldBrains[netIterator]);
-
+            car.brain = new NeuralNetwork(oldBrains[netIterator]); //netIterator względem tego pokolorować
+            
+            Color m_NewColor = SwitchColor(Random.Range(0,5));
+            car.myColor = m_NewColor;
+            car.GetComponent<SpriteRenderer>().color = car.myColor;
             //print("new brain - " + oldBrains[netIterator].GetFitness());
 
             if (!bestOne)
@@ -181,7 +191,7 @@ public class GenerationsManager : MonoBehaviour {
             if (netIterator >= oldBrains.Count)
                 netIterator = 0;
         }
-
+        NeuralList.list.CarList();
         display.UpdateDisplay();
         IterGenCounter();
     }
@@ -294,5 +304,28 @@ public class GenerationsManager : MonoBehaviour {
                     net.weights[x][y][z] = float.Parse(lines[iterator++]);
 
         return net;
+    }
+
+    Color SwitchColor(int chooseColor) {
+        switch(chooseColor){
+            case 0:
+                return Color.blue;
+                break;
+            case 1:
+                return Color.green;
+                break;
+            case 2:
+                return Color.red;
+                break;
+            case 3:
+                return Color.yellow;
+                break;
+            case 4:
+                return Color.magenta;
+                break;
+            default:
+                return Color.white;
+                break;
+        }
     }
 }
