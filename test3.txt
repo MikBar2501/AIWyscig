@@ -1,0 +1,27 @@
+===GENERATION 1===
+blue: reached check point 0
+blue: reached check point 1
+red: reached check point 0
+red: reached check point 1
+green: reached check point 0
+green: reached check point 1
+green: reached check point 3
+blue: best fit - 4.217456
+red: best fit - 4.217456
+green: best fit - 11.26659
+===GENERATION 2===
+blue: reached check point 2
+red: reached check point 2
+green: reached check point 6
+blue: best fit - 7.75268
+red: best fit - 7.667266
+green: best fit - 22.14199
+===GENERATION 3===
+blue: best fit - 7.760105
+red: best fit - 7.678326
+===GENERATION 4===
+blue: reached check point 3
+blue: best fit - 11.1516
+red: best fit - 7.700368
+green: best fit - 22.21329
+===GENERATION 5===

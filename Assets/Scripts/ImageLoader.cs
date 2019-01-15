@@ -41,9 +41,21 @@ public class ImageLoader : MonoBehaviour {
         {
             string name = f.ToString();
             //testText.text = folderPath + "/" + name;
-            Texture2D image = LoadImage(new Vector2(512,512), folderPath + "/" + name); //FOR BUILD
-            //Texture2D image = LoadImage(new Vector2(512, 512), name); //FOR EDITOR
-            imageFiles.Add(new ImageFile { name = name, image = image, fullPath = name });
+            Texture2D image;
+            if (Application.isEditor)
+            {
+                print("editor");
+                image = LoadImage(new Vector2(512, 512), name); //FOR EDITOR
+                
+                imageFiles.Add(new ImageFile { name = name, image = image, fullPath = name });
+            }
+            else
+            {
+                image = LoadImage(new Vector2(512, 512), folderPath + "/" + name); //FOR BUILD     
+                imageFiles.Add(new ImageFile { name = name, image = image, fullPath = name });
+                //imageFiles.Add(new ImageFile { name = name, image = image, fullPath = name });
+                //imageFiles.Add(new ImageFile { name = name, image = image, fullPath = folderPath + "/" + name });
+            }
             //imageFiles.Add(new ImageFile { name = name, image = image, fullPath = folderPath + "/" + name });
         }
 
@@ -74,7 +86,7 @@ public class ImageLoader : MonoBehaviour {
 
     private static Texture2D LoadImage(Vector2 size, string filePath)
     {
-
+        print(filePath);
         byte[] bytes = File.ReadAllBytes(filePath);
         Texture2D texture = new Texture2D((int)size.x, (int)size.y, TextureFormat.RGB24, false);
         texture.filterMode = FilterMode.Trilinear;

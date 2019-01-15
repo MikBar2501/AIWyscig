@@ -1,0 +1,22 @@
+blue: SETTINGS
+blue: gen count - 20
+blue: keep perc - 0.2%
+blue: soft mutation chance - 4%
+blue: hard mutation chance - 4%
+blue: range of change - 0
+
+red: SETTINGS
+red: gen count - 20
+red: keep perc - 0.2%
+red: soft mutation chance - 4%
+red: hard mutation chance - 4%
+red: range of change - 0
+
+green: SETTINGS
+green: gen count - 20
+green: keep perc - 0.2%
+green: soft mutation chance - 4%
+green: hard mutation chance - 4%
+green: range of change - 0
+
+===GENERATION 1===

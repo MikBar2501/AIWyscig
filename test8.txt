@@ -1,0 +1,59 @@
+blue: SETTINGS
+blue: gen count - 20
+blue: keep perc - 0.2%
+blue: soft mutation chance - 8%
+blue: hard mutation chance - 4%
+blue: range of change - 0.1
+
+red: SETTINGS
+red: gen count - 20
+red: keep perc - 0.2%
+red: soft mutation chance - 20%
+red: hard mutation chance - 10%
+red: range of change - 0.1
+
+green: SETTINGS
+green: gen count - 20
+green: keep perc - 0.2%
+green: soft mutation chance - 30%
+green: hard mutation chance - 10%
+green: range of change - 0.3717138
+
+===GENERATION 1===
+blue: reached check point 0
+blue: reached check point 1
+red: reached check point 0
+red: reached check point 1
+red: reached check point 3
+green: reached check point 0
+green: reached check point 4
+blue: best fit - 4.249827
+red: best fit - 11.09335
+green: best fit - 14.483
+===GENERATION 2===
+red: reached check point 4
+green: reached check point 5
+red: best fit - 14.55152
+green: best fit - 18.07729
+===GENERATION 3===
+red: reached check point 5
+red: best fit - 18.00177
+green: best fit - 18.11156
+===GENERATION 4===
+blue: reached check point 2
+red: reached check point 6
+blue: best fit - 7.75373
+red: best fit - 22.15591
+===GENERATION 5===
+green: reached check point 6
+blue: best fit - 7.784467
+red: best fit - 22.16985
+green: best fit - 22.13918
+===GENERATION 6===
+blue: reached check point 3
+blue: best fit - 11.1786
+red: best fit - 22.22162
+===GENERATION 7===
+red: best fit - 22.22262
+===GENERATION 8===
+===GENERATION 9===

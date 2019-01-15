@@ -1,0 +1,32 @@
+blue: SETTINGS
+blue: gen count - 20
+blue: keep perc - 0.2%
+blue: soft mutation chance - 8%
+blue: hard mutation chance - 4%
+blue: range of change - 0.1
+
+red: SETTINGS
+red: gen count - 20
+red: keep perc - 0.2%
+red: soft mutation chance - 8%
+red: hard mutation chance - 4%
+red: range of change - 0.1
+
+green: SETTINGS
+green: gen count - 20
+green: keep perc - 0.2%
+green: soft mutation chance - 8%
+green: hard mutation chance - 4%
+green: range of change - 0.1
+
+===GENERATION 1===
+blue: reached check point 0
+blue: reached check point 2
+blue: reached check point 6
+red: reached check point 6
+green: reached check point 0
+green: reached check point 2
+blue: best fit - 25.37693
+red: best fit - 24.70684
+green: best fit - 8.424993
+===GENERATION 2===

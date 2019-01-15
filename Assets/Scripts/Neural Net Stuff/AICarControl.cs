@@ -20,12 +20,22 @@ public class AICarControl : CarController {
     {
         float totalFitness = 0.0f;
 
+        GenerationSettings settings = GenerationsManager.main.GetSettingsOfID(brain.ID); //to jest takie glupie omg stop
+        GenerationInfo info = GenerationsManager.main.generationsInfo[settings.ID];
+        int bestCheks = info.checkPointReached;
+        if (checkRun.checkedPoints.Count > bestCheks)
+        {
+            info.checkPointReached = checkRun.checkedPoints.Count;
+            GenerationsManager.main.AddLineToData("reached check point " + (checkRun.checkedPoints.Count - 1), settings.ID);
+            GenerationsManager.main.generationsInfo[settings.ID] = info;
+        }
+
         CheckedPoint lastCheckPoint = checkRun.checkedPoints[0];
         for (int i = 1; i < checkRun.checkedPoints.Count; i++) 
         {
             CheckedPoint checkPoint = checkRun.checkedPoints[i];
 
-            totalFitness += 1 / (checkPoint.time - lastCheckPoint.time);
+            totalFitness += 1 / (checkPoint.time - lastCheckPoint.time) + 3;
 
             lastCheckPoint = checkPoint;
         }

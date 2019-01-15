@@ -17,7 +17,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
 
     public Color color;
 
-    public string ID;
+    public int ID;
 
     /// <summary>
     /// Initilizes and neural network with random weights
@@ -166,7 +166,7 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
     /// <summary>
     /// Mutate neural network weights
     /// </summary>
-    public void Mutate(bool allowForgetting, float rangeOfChanges)
+    public void Mutate(bool allowForgetting, float rangeOfChanges, int chanse0, int chanse1, int chanse2, bool randomAll = false)
     {
         for (int i = 0; i < weights.Length; i++)
         {
@@ -177,24 +177,18 @@ public class NeuralNetwork : IComparable<NeuralNetwork>
                     float weight = weights[i][j][k];
 
                     //mutate weight value 
-                    float randomNumber = UnityEngine.Random.Range(0f,100f);
+                    float randomNumber = UnityEngine.Random.Range(0f, 100f);
 
-                    if (allowForgetting)
-                    {
-                        if (randomNumber <= 2f) //new solutions
-                        { //if 1
-                          //flip sign of weight
-                            weight *= -1f;
-                        }
-                        else if (randomNumber <= 4f)
-                        { //if 2
-                          //pick random weight between -1 and 1
-                            weight = UnityEngine.Random.Range(-0.5f, 0.5f);
-                        }
+                    if (randomNumber <= chanse0 || randomAll) //new solutions
+                    { 
+                        weight = UnityEngine.Random.Range(-0.5f, 0.5f);
                     }
-                    else if (randomNumber <= 4f)
-                    { //if 4
-                      //randomly decrease by 0% to 100%
+                    else if (randomNumber <= chanse0 + chanse1)
+                    {
+                        weight *= -1f;
+                    }
+                    else if (randomNumber <= chanse0 + chanse1 + chanse2)
+                    { 
                         float factor = UnityEngine.Random.Range(1f - rangeOfChanges, 1f + rangeOfChanges);
                         weight *= factor;
                     }

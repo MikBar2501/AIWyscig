@@ -65,6 +65,8 @@ public class GenerationDisplay : MonoBehaviour {
 
     public void Leave()
     {
+        GenerationsManager.main.SaveData();
+
         Application.LoadLevel(0);
     }
 }

@@ -6,9 +6,30 @@ using Random=UnityEngine.Random;
 using System;
 using System.IO;
 
+public struct GenerationSettings
+{
+    public Color color;
+    public int ID;
+    public int count;
+    public int startIndex;
+    public int endIndex;
+    public float keepPerc;
+    public float rangeOfMutation;
+    public int softMutationChanse;
+    public int hardMutationChanse;
+}
+
+public struct GenerationInfo
+{
+    public int checkPointReached;
+    public float bestFitness;
+}
+
 public class GenerationsManager : MonoBehaviour {
 
     public static GenerationsManager main;
+    public static List<GenerationSettings> generationsSettings;
+    public List<GenerationInfo> generationsInfo;
 
     public bool menuMode;
 
@@ -29,12 +50,58 @@ public class GenerationsManager : MonoBehaviour {
 
     public Text genTimeText;
 
+    List<int> groupsCount;
+
+    List<string> data;
+
+    public void AddLineToData(string line)
+    {
+        data.Add(line);
+    }
+
+    public void AddLineToData(string line, int ID)
+    {
+        string groupName = "nieznany: ";
+        switch(ID)
+        {
+            case 0:
+                groupName = "blue: ";
+                break;
+
+            case 1:
+                groupName = "red: ";
+                break;
+
+            case 2:
+                groupName = "green: ";
+                break;
+        }
+
+        data.Add(groupName + line);
+    }
+
+    public void SaveData()
+    {
+        int counter = 0;
+        while (File.Exists("test" + counter + ".txt"))
+            counter++;
+
+        File.WriteAllLines(@"test" +counter + ".txt", data.ToArray());
+    }
+
     private void Awake()
     {
         main = this;
         gameControl = GetComponent<ButtonScript>();
         timeControl = GetComponent<TimeScript>();
         display = GetComponent<GenerationDisplay>();
+
+        data = new List<string>();
+        generationsInfo = new List<GenerationInfo>();
+
+        if(generationsSettings != null)
+        for (int i = 0; i < generationsSettings.Count; i++)
+            generationsInfo.Add(new GenerationInfo());
     }
 
     public void SetGenTime(Slider slider)
@@ -61,15 +128,40 @@ public class GenerationsManager : MonoBehaviour {
     {
         genCounter++;
         genText.text = "Generation: " + genCounter;
+        AddLineToData("===GENERATION " + genCounter + "===");
+
     }
 
     // Use this for initialization
     void Start () {
-        if(!menuMode)
+
+
+        //string[] lines = { "First line", "Second line", "Third line" };
+
+        if (!menuMode)
+        {
+            groupsCount = new List<int>();
+            for (int i = 0; i < generationsSettings.Count; i++)
+            {
+                groupsCount.Add(generationsSettings[i].count);
+            }
             gameControl.StartButton();
+        }
 
         if (Training() && !menuMode)
         {
+            for (int i = 0; i < generationsSettings.Count; i++)
+            {
+                GenerationSettings setting = generationsSettings[i];
+                AddLineToData("SETTINGS", i);
+                AddLineToData("gen count - " + setting.count, i);
+                AddLineToData("keep perc - " + setting.keepPerc + "%", i);
+                AddLineToData("soft mutation chance - " + setting.softMutationChanse + "%", i);
+                AddLineToData("hard mutation chance - " + setting.hardMutationChanse + "%", i);
+                AddLineToData("range of change - " + setting.rangeOfMutation, i);
+                AddLineToData("");
+            }
+
             IterGenCounter();
             CreateFirstGeneration();
             display.UpdateDisplay();
@@ -96,6 +188,19 @@ public class GenerationsManager : MonoBehaviour {
         }
     }
 	
+    public GenerationSettings GetSettingsOfID(int ID)
+    {
+        for(int i = 0; i < generationsSettings.Count; i++)
+        {
+            if (ID > generationsSettings[i].endIndex)
+                continue;
+
+            return generationsSettings[i];
+        }
+
+        return new GenerationSettings();
+    }
+
     public void ActivateCars()
     {
         foreach (CarController carCon in FindObjectsOfType<CarController>())
@@ -118,20 +223,25 @@ public class GenerationsManager : MonoBehaviour {
 
         bool first = true;
         NeuralList.list.ClearList();
+
+        int iterator = 0;
         foreach (AICarControl car in GameObject.FindObjectsOfType<AICarControl>())
         {
-            Color m_NewColor = SwitchColor(Random.Range(0,5));
+            //Color m_NewColor = SwitchColor(Random.Range(0,5));
+            //Color m_NewColor = SwitchColor(Random.Range(0,5));start
             //car.myColor = m_NewColor;
-            car.myColor = Color.white;
+            car.myColor = GetSettingsOfID(iterator).color;
             car.GetComponent<SpriteRenderer>().color = car.myColor;
             NeuralList.list.AddInList(car);
             
 
             car.brain = new NeuralNetwork(startNet);
+            car.brain.ID = iterator;
+            iterator++;
 
             if (!first)
             {
-                car.brain.Mutate(true, 1);
+                car.brain.Mutate(true, 1, 100,100,100, true);
             }
             else
             {
@@ -147,17 +257,86 @@ public class GenerationsManager : MonoBehaviour {
     }
 
     void CreateNextGeneration(List<NeuralNetwork> oldBrains)
-    {
-        
+    {    
+
         gameControl.StopButton();
         gameControl.StartButton();
 
-        ///==Wyrzucenie zbędnych mozgów===///
-        int keepCount = (int)(oldBrains.Count * keepPerc);
+
+        NeuralNetwork.best = oldBrains[0];
+        for(int i = 0; i < generationsSettings.Count; i++)
+        {
+            List<NeuralNetwork> groupBrains = new List<NeuralNetwork>();
+            for(int n = 0; n < oldBrains.Count; n++)
+            {
+                NeuralNetwork brain = oldBrains[n];
+                if (GetSettingsOfID(brain.ID).ID == i)
+                {
+                    groupBrains.Add(brain);
+                }
+            }
+
+            CreateNextGenerationGroup(i, groupBrains);
+        }
+        
+        NeuralList.list.ClearList();
+        ///==Rozmnazanie Mózgów==///
+        //int netIterator = 0;
+        //bool bestOne = true;
+        //int iterator = 0;
+
+        //foreach (AICarControl car in GameObject.FindObjectsOfType<AICarControl>())
+        //{
+        //    car.brain = new NeuralNetwork(oldBrains[netIterator]); //netIterator względem tego pokolorować
+            
+        //    //Color m_NewColor = SwitchColor(Random.Range(0,5));
+        //    //car.myColor = m_NewColor;
+        //    car.myColor = GetSettingsOfID(iterator).color;
+        //    car.GetComponent<SpriteRenderer>().color = car.myColor;
+        //    //print("new brain - " + oldBrains[netIterator].GetFitness());
+
+        //     NeuralList.list.AddInList(car);
+        //    if (!bestOne)
+        //        car.brain.Mutate(true, 0.1f);
+        //    else
+        //    {
+        //        //car.GetComponent<ColorChangerSR>().ChangeColor(Color.yellow);
+        //        display.bestCar = car.gameObject;
+        //        NeuralNetwork.best = car.brain;
+        //        bestOne = false;
+        //    }
+
+        //    iterator++;
+        //    netIterator++;
+        //    if (netIterator >= oldBrains.Count)
+        //        netIterator = 0;
+        //}
+        //NeuralList.list.CarList();
+        NeuralList.list.Invoke("CheckedList",0.5f);
+        //Debug.Log("ListaReady");
+        display.UpdateDisplay();
+        IterGenCounter();
+    }
+
+    void CreateNextGenerationGroup(int ID, List<NeuralNetwork> oldBrains)
+    {
+        GenerationSettings settings = generationsSettings[ID];
+
+        int keepCount = (int)(oldBrains.Count * settings.keepPerc);
         if (keepCount == 0)
             keepCount = 1;
 
-        if (oldBrains[0].GetFitness() == 0)
+        float bestFittnes = oldBrains[0].GetFitness();
+        GenerationInfo info = generationsInfo[ID];
+
+        if (bestFittnes > info.bestFitness)
+        {
+            info.bestFitness = bestFittnes;
+            AddLineToData("best fit - " + bestFittnes, ID);
+            generationsInfo[ID] = info;
+        }
+
+        if (bestFittnes == 0)
             keepCount = (int)((float)oldBrains.Count / 2);
 
         if (keepCount == 0)
@@ -168,40 +347,57 @@ public class GenerationsManager : MonoBehaviour {
         {
             oldBrains.RemoveAt(oldBrains.Count - 1);
         }
-        
-        NeuralList.list.ClearList();
-        ///==Rozmnazanie Mózgów==///
+
+
         int netIterator = 0;
         bool bestOne = true;
-        foreach (AICarControl car in GameObject.FindObjectsOfType<AICarControl>())
+        //int iterator = 0;
+        bool mutate = false;
+
+        AICarControl[] cars = GameObject.FindObjectsOfType<AICarControl>();
+
+        for (int i = settings.startIndex; i <= settings.endIndex; i++)
         {
+            AICarControl car = cars[i];
+
             car.brain = new NeuralNetwork(oldBrains[netIterator]); //netIterator względem tego pokolorować
-            
-            Color m_NewColor = SwitchColor(Random.Range(0,5));
+            car.brain.ID = i;
+
+            //Color m_NewColor = SwitchColor(Random.Range(0,5));
             //car.myColor = m_NewColor;
-            car.myColor = Color.green;
+            car.myColor = GetSettingsOfID(i).color;
             car.GetComponent<SpriteRenderer>().color = car.myColor;
             //print("new brain - " + oldBrains[netIterator].GetFitness());
-             NeuralList.list.AddInList(car);
-            if (!bestOne)
-                car.brain.Mutate(true, 0.7f);
+
+            NeuralList.list.AddInList(car);
+            int hard = (int)((float)settings.hardMutationChanse / 2);
+            if (hard == 0 && settings.hardMutationChanse > 0)
+                hard = 1;
+
+            if (mutate)
+                car.brain.Mutate(true, settings.rangeOfMutation, hard, hard, settings.softMutationChanse);
             else
             {
-                //car.GetComponent<ColorChangerSR>().ChangeColor(Color.yellow);
-                display.bestCar = car.gameObject;
-                NeuralNetwork.best = car.brain;
-                bestOne = false;
-            }
+                if(NeuralNetwork.best == oldBrains[netIterator])
+                {
+                    NeuralNetwork.best = car.brain;
+                    display.bestCar = car.gameObject;
+                }
 
+            }
+            mutate = true;
+            //iterator++;
             netIterator++;
             if (netIterator >= oldBrains.Count)
+            {
                 netIterator = 0;
+            }
         }
-        //NeuralList.list.CarList();
-        NeuralList.list.Invoke("CheckedList",0.5f);
-        //Debug.Log("ListaReady");
-        display.UpdateDisplay();
-        IterGenCounter();
+    }
+
+    void ApplyColors()
+    {
+
     }
 
     List<NeuralNetwork> GetSortedNets()

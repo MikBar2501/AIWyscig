@@ -19,7 +19,23 @@ public class InstancePlayer : MonoBehaviour {
 		instancePlayer = this;
 
         learnMode = GenerationsManager.Training();
+
+        if(learnMode)
+        {
+            carCount = GetCarsCount();
+        }
 	}
+
+    int GetCarsCount()
+    {
+        carCount = 0;
+        for(int i = 0; i < GenerationsManager.generationsSettings.Count; i++)
+        {
+            carCount += GenerationsManager.generationsSettings[i].count;
+            print(carCount);
+        }
+        return carCount;
+    }
 
 	public void StartGame() {
 		if(learnMode) {

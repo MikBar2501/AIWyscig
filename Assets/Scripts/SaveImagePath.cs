@@ -10,8 +10,26 @@ public class SaveImagePath : MonoBehaviour {
 
 	public void Save()
     {
-        PlayerPrefs.SetString("img_path", ImageLoader.folderPath + "/" + imgPath);
-        SceneManager.LoadScene(1);
+
+        string fullPath ="";
+
+        if(Application.isEditor)
+        {
+            fullPath = imgPath;
+        }
+        else
+        {
+            fullPath = ImageLoader.folderPath + "/" + imgPath;
+        }
+        PlayerPrefs.SetString("img_path", fullPath);
+        if(PlayerPrefs.GetInt("training") == 1)
+        {
+            Menu.instanceMenu.OpenNetSettings();
+        }
+        else
+        {
+            Application.LoadLevel(1);
+        }
     }
       
 
