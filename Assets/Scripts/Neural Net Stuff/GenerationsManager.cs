@@ -117,12 +117,14 @@ public class GenerationsManager : MonoBehaviour {
         }
 
         bool first = true;
-
+        NeuralList.list.ClearList();
         foreach (AICarControl car in GameObject.FindObjectsOfType<AICarControl>())
         {
             Color m_NewColor = SwitchColor(Random.Range(0,5));
-            car.myColor = m_NewColor;
+            //car.myColor = m_NewColor;
+            car.myColor = Color.white;
             car.GetComponent<SpriteRenderer>().color = car.myColor;
+            NeuralList.list.AddInList(car);
             
 
             car.brain = new NeuralNetwork(startNet);
@@ -138,13 +140,15 @@ public class GenerationsManager : MonoBehaviour {
             }
             first = false;
         }
-        NeuralList.list.CarList();
+        NeuralList.list.Invoke("CheckedList",0.5f);
+        //NeuralList.list.CarList();
         
 
     }
 
     void CreateNextGeneration(List<NeuralNetwork> oldBrains)
     {
+        
         gameControl.StopButton();
         gameControl.StartButton();
 
@@ -164,7 +168,8 @@ public class GenerationsManager : MonoBehaviour {
         {
             oldBrains.RemoveAt(oldBrains.Count - 1);
         }
-
+        
+        NeuralList.list.ClearList();
         ///==Rozmnazanie Mózgów==///
         int netIterator = 0;
         bool bestOne = true;
@@ -173,12 +178,13 @@ public class GenerationsManager : MonoBehaviour {
             car.brain = new NeuralNetwork(oldBrains[netIterator]); //netIterator względem tego pokolorować
             
             Color m_NewColor = SwitchColor(Random.Range(0,5));
-            car.myColor = m_NewColor;
+            //car.myColor = m_NewColor;
+            car.myColor = Color.green;
             car.GetComponent<SpriteRenderer>().color = car.myColor;
             //print("new brain - " + oldBrains[netIterator].GetFitness());
-
+             NeuralList.list.AddInList(car);
             if (!bestOne)
-                car.brain.Mutate(true, 0.1f);
+                car.brain.Mutate(true, 0.7f);
             else
             {
                 //car.GetComponent<ColorChangerSR>().ChangeColor(Color.yellow);
@@ -191,7 +197,9 @@ public class GenerationsManager : MonoBehaviour {
             if (netIterator >= oldBrains.Count)
                 netIterator = 0;
         }
-        NeuralList.list.CarList();
+        //NeuralList.list.CarList();
+        NeuralList.list.Invoke("CheckedList",0.5f);
+        //Debug.Log("ListaReady");
         display.UpdateDisplay();
         IterGenCounter();
     }
